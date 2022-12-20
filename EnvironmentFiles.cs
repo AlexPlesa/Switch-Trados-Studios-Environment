@@ -32,6 +32,7 @@ namespace Switch_Trados_Studios_Environment
             {
                 //dialog.IsFolderPicker = true;
                 //dialog.EnsurePathExists = true;
+                dialog.Filter = "config files (*.exe.config)|*.exe.config|All files (*.*)|*.*\\";
                 dialog.ShowDialog();
                 return dialog.FileName;
             }
