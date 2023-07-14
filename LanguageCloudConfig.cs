@@ -28,7 +28,7 @@ namespace Switch_Trados_Studios_Environment
             {
                 try
                 {
-                    FileInfo fileInfo = new FileInfo($@"{appdataDirectory}{languageCloudMachineTranslationLocation}\{Constants.LanguageCloudMachineTranslation}");
+                    FileInfo fileInfo = new FileInfo($@"{appdataDirectory}{languageCloudMachineTranslationLocation}\{buildType}\{Constants.LanguageCloudMachineTranslation}");
                     fileInfo.Delete();
                 }
                 catch (Exception ex) { };
