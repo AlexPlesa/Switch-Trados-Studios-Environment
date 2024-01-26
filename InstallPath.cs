@@ -16,7 +16,7 @@ namespace Switch_Trados_Studios_Environment
             }
             else
             {
-                string StudioInstallRegistryPath = buildName.Contains("17") ? Constants.TradosInstallRegistryPath : Constants.SdlInstallRegistryPath;
+                string StudioInstallRegistryPath = buildName.Contains("16") ? Constants.SdlInstallRegistryPath : Constants.TradosInstallRegistryPath;
                 string buildRegistryKeyPath = Path.Combine(StudioInstallRegistryPath, buildName);
                 RegistryKey SdlInstallRegistry = Registry.LocalMachine.OpenSubKey(buildRegistryKeyPath);
                 installLocation = (string)SdlInstallRegistry.GetValue("InstallLocation");

@@ -28,13 +28,13 @@ namespace Switch_Trados_Studios_Environment
             if (SdlInstallRegistry != null)
             {
                 var installedStudioBuilds = SdlInstallRegistry.GetSubKeyNames()
-               .Where<string>(val => (val.Contains("Studio16") || val.Contains("Studio17")) && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
+               .Where<string>(val => (val.Contains("Studio16") || val.Contains("Studio17") || val.Contains("Studio18")) && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
                 installedBuilds.AddRange(installedStudioBuilds);
             }
             if (TradosInstallRegistry != null)
             {
                 var installedStudioBuilds = TradosInstallRegistry.GetSubKeyNames()
-               .Where<string>(val => (val.Contains("Studio16") || val.Contains("Studio17")) && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
+               .Where<string>(val => (val.Contains("Studio16") || val.Contains("Studio17") || val.Contains("Studio18")) && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
                 installedBuilds.AddRange(installedStudioBuilds);
             }
             return installedBuilds;

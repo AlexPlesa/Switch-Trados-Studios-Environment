@@ -11,7 +11,7 @@
                 </auth0>
   </BestMatchServiceSettings>
 
-  <BestMatchServiceUrlsConfig login="http://lc-qa-apigw" logout="http://qa-languagecloud.sdl.com/lc/logout" auth0="https://sdl-preprod.eu.auth0.com">
+  <BestMatchServiceUrlsConfig login="https://qa-lc-api.sdl.com" logout="https://qa-lc-api.sdl.com/lc/logout" auth0="https://sdl-preprod.eu.auth0.com">
     <translationToolkit url="https://qa-languagecloud.sdl.com/lc/">
       <alternate lang="de" url="https://qa-languagecloud.sdl.com/de/lc/" />
       <alternate lang="fr" url="https://qa-languagecloud.sdl.com/fr/lc/" />
