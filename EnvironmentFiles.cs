@@ -8,24 +8,18 @@ using System.Threading.Tasks;
 
 namespace Switch_Trados_Studios_Environment
 {
-    internal class EnvironmentFiles
+    internal static class EnvironmentFiles
     {
-        public Dictionary<int, string> environmentDictionary = new Dictionary<int, string>();
-        public string environmentFolderPath;
+        public static Dictionary<int, string> environmentDictionary = new Dictionary<int, string>();
+        public static string environmentFolderPath = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath), @"Environment Files\");
 
-        internal EnvironmentFiles()
+        public static string GetPathToTheSpecificEnvironmentFile(int environment, bool isMultiregion)
         {
-            
-            environmentFolderPath = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath), @"Environment Files\");
-            PopulateEnvironmentDictionaries();
+            if (isMultiregion) return $@"{environmentFolderPath}\MultiregionConfigs\{environmentDictionary[environment]}";
+            else return $@"{environmentFolderPath}\SingleRegionConfigs\{environmentDictionary[environment]}";
         }
 
-        public string GetPathToTheSpecificEnvironmentFile(int environment)
-        {
-            return Path.Combine(environmentFolderPath, environmentDictionary[environment]);
-        }
-
-        public string AddCustomLocation()
+        public static string AddCustomLocation()
         {
             var dialog = new OpenFileDialog();
             try
@@ -43,15 +37,17 @@ namespace Switch_Trados_Studios_Environment
         }
 
 
-        private void PopulateEnvironmentDictionaries()
+        public static string[] GetEnvironmentFilesDictionaries()
         {
-            var environmentConfigFiles = Directory.GetFiles(environmentFolderPath);
+            var environmentConfigFiles = Directory.GetFiles($@"{environmentFolderPath}\MultiregionConfigs\");
 
             for (int position = 0; position < environmentConfigFiles.Count(); position++)
             {
                 FileInfo fileInfo = new FileInfo(environmentConfigFiles[position]);
                 environmentDictionary.Add(position, fileInfo.Name);
             }
+
+            return environmentConfigFiles;
         }
     }
 }

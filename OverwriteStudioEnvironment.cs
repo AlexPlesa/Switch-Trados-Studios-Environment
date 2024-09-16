@@ -10,18 +10,33 @@ namespace Switch_Trados_Studios_Environment
     class OverwriteStudioEnvironment
     {
         public InstalledBuilds installedBuilds = new InstalledBuilds();
-        EnvironmentFiles environmentFiles = new EnvironmentFiles();
         ApplicationKey applicationKey = new ApplicationKey();
 
         public void SwitchStudiosLcEnvironment(int selectedStudioTypeIndexe, int environment)
         {
+            var selectedStudioType = installedBuilds.studioBuildTypeDictionary[selectedStudioTypeIndexe];
+            string installLocation;
+            string environmentFilePath;
+            bool isDevBuild = selectedStudioType.Contains("\\");
+            if (!isDevBuild) 
+            {
+                InstalledBuildInformation installedBuildInformation = installedBuilds.listOfInstalledBuilds.Single(b => $"{b.DisplayName} {b.DisplayVersion}" == selectedStudioType);
+                installLocation = installedBuildInformation.InstallLocation;
+                bool isMiltiregion = double.Parse(installedBuildInformation.DisplayVersion.Replace(".", ""))/10000 > 1801.9; //Checks if the installed studio version support Language Cloud multiregion
+                environmentFilePath = EnvironmentFiles.GetPathToTheSpecificEnvironmentFile(environment, isMiltiregion);
+            }
+            else
+            {
+                installLocation = selectedStudioType;
+                environmentFilePath = EnvironmentFiles.GetPathToTheSpecificEnvironmentFile(environment, true);
+            }
+
             XmlDocument bestMatchServicesSettings = new XmlDocument();
-            bestMatchServicesSettings.Load(environmentFiles.GetPathToTheSpecificEnvironmentFile(environment));
+            bestMatchServicesSettings.Load(environmentFilePath);
             var newLanguageCloudSyncConfig = bestMatchServicesSettings.SelectSingleNode(Constants.LanguageCloudSyncConfigNode);
             var newBestMatchServiceSettings = bestMatchServicesSettings.SelectSingleNode(Constants.BestMatchServiceSettingsNode);
             var newBestMatchServiceUrlConfig = bestMatchServicesSettings.SelectSingleNode(Constants.BestMatchServiceUrlsConfigNode);
-            var selectedStudioType = installedBuilds.studioBuildTypeDictionary[selectedStudioTypeIndexe];
-            var installLocation = selectedStudioType.Contains("\\") ? selectedStudioType : new InstallPath(selectedStudioType).installLocation;
+            
 
             XmlDocument tradosStudioConfigFile = new XmlDocument();
             string lcEnvironmentFilePath = installedBuilds.nrOfInstalledBuilds <= selectedStudioTypeIndexe ?

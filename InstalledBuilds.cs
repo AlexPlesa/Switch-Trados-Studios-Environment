@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 
@@ -8,7 +9,7 @@ namespace Switch_Trados_Studios_Environment
 {
     public class InstalledBuilds
     {
-        public List<string> listOfInstalledBuilds = new List<string>();
+        public List<InstalledBuildInformation> listOfInstalledBuilds = new List<InstalledBuildInformation>();
         public Dictionary<int, string> studioBuildTypeDictionary = new Dictionary<int, string>();
         public int nrOfInstalledBuilds;
 
@@ -20,33 +21,40 @@ namespace Switch_Trados_Studios_Environment
         }
 
 
-        private List<string> PopulateListOfInstalledBuilds()
+        private List<InstalledBuildInformation> PopulateListOfInstalledBuilds()
         {
-            RegistryKey SdlInstallRegistry = Registry.LocalMachine.OpenSubKey(Constants.SdlInstallRegistryPath);
-            RegistryKey TradosInstallRegistry = Registry.LocalMachine.OpenSubKey(Constants.TradosInstallRegistryPath);
+            RegistryKey SdlInstallRegistry = Registry.LocalMachine.OpenSubKey(Constants.Trados32bit);
+
             List<string> installedBuilds = new List<string>();
+            List<InstalledBuildInformation> installedBuildsInformation = new List<InstalledBuildInformation>();
             if (SdlInstallRegistry != null)
             {
                 var installedStudioBuilds = SdlInstallRegistry.GetSubKeyNames()
-               .Where<string>(val => (val.Contains("Studio16") || val.Contains("Studio17") || val.Contains("Studio18")) && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
+               .Where<string>(val => val.StartsWith("Studio1") && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
                 installedBuilds.AddRange(installedStudioBuilds);
             }
-            if (TradosInstallRegistry != null)
+            foreach(var buildName in installedBuilds)
             {
-                var installedStudioBuilds = TradosInstallRegistry.GetSubKeyNames()
-               .Where<string>(val => (val.Contains("Studio16") || val.Contains("Studio17") || val.Contains("Studio18")) && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
-                installedBuilds.AddRange(installedStudioBuilds);
+                RegistryKey tradosInstallInformation = Registry.LocalMachine.OpenSubKey(Path.Combine(Constants.Trados32bit, buildName));
+                installedBuildsInformation.Add(new InstalledBuildInformation
+                {
+                    DisplayName = (string)tradosInstallInformation.GetValue("DisplayName"),
+                    DisplayVersion = (string)tradosInstallInformation.GetValue("DisplayVersion"),
+                    InstallLocation = tradosInstallInformation.GetValue("DisplayIcon").ToString().Substring(0, tradosInstallInformation.GetValue("DisplayIcon").ToString().LastIndexOf('\\'))
+                });
+                
             }
-            return installedBuilds;
+            
+            return installedBuildsInformation;
         }
 
         private Dictionary<int, string> PopulateStudioDictionaries()
         {
             int Key = 0;
             Dictionary<int, string> buildTypeDictionary = new Dictionary<int, string>();
-            foreach (string build in listOfInstalledBuilds)
+            foreach (var build in listOfInstalledBuilds)
             {
-                buildTypeDictionary.Add(Key, build);
+                buildTypeDictionary.Add(Key, $"{build.DisplayName} {build.DisplayVersion}");
                 Key++;
             }
             return buildTypeDictionary;

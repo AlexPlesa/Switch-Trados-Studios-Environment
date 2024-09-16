@@ -17,18 +17,17 @@ namespace Switch_Trados_Studios_Environment
         private readonly OverwriteStudioEnvironment overwriteStudioEnvironment = new OverwriteStudioEnvironment();
         private readonly InstalledBuilds installedBuilds = new InstalledBuilds();
         private readonly StudioProcess studioProcess = new StudioProcess();
-        private readonly EnvironmentFiles environmentFiles = new EnvironmentFiles();
         private readonly LanguageCloudConfig languageCloudConfig = new LanguageCloudConfig();
 
         public MainWindow()
         {
             InitializeComponent();
             
-            foreach (string build in installedBuilds.listOfInstalledBuilds)
+            foreach (var build in installedBuilds.listOfInstalledBuilds)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
                 comboBoxItem.Background = Brushes.White;
-                comboBoxItem.Content = build;
+                comboBoxItem.Content = $"{build.DisplayName} {build.DisplayVersion}";
                 StudioBuildType.Items.Add(comboBoxItem);
             }
             if (installedBuilds.listOfInstalledBuilds.Count == 1)
@@ -44,8 +43,7 @@ namespace Switch_Trados_Studios_Environment
                 SwitchEnvironmentButton.IsEnabled = false;
             }
 
-            string environmentFolderPath = new EnvironmentFiles().environmentFolderPath;
-            var environmentConfigFiles = Directory.GetFiles(environmentFolderPath);
+            var environmentConfigFiles = EnvironmentFiles.GetEnvironmentFilesDictionaries();
 
             foreach (string environmentFile in environmentConfigFiles)
             {
@@ -89,7 +87,7 @@ namespace Switch_Trados_Studios_Environment
             SwitchEnvironmentButton.IsEnabled = false;
             try
             {
-                string message = string.Format("Success:\n\n{0} has been changed to the {1}", StudioBuildType.Text, EnvironmentType.Text);
+                string message = $"Success:\n\n{StudioBuildType.Text} has been changed to the {EnvironmentType.Text}";
                 overwriteStudioEnvironment.SwitchStudiosLcEnvironment(studioIndex, environmentIndex);
                 Status.Visibility = Visibility.Visible;
                 Status.Text = message;
@@ -98,7 +96,7 @@ namespace Switch_Trados_Studios_Environment
             catch(Exception exception)
             {
                 Status.Visibility = Visibility.Visible;
-                Status.Text = String.Format("Failed:\n\n{0}", exception.Message);
+                Status.Text = $"Failed:\n\n{exception.Message}";
                 Status.Foreground = Brushes.OrangeRed;
             }
             SwitchEnvironmentButton.IsEnabled = true;
@@ -106,7 +104,7 @@ namespace Switch_Trados_Studios_Environment
 
         private void CustomLocation_Click(object sender, RoutedEventArgs e)
         {
-            string customLocation = environmentFiles.AddCustomLocation();
+            string customLocation = EnvironmentFiles.AddCustomLocation();
             if (customLocation != string.Empty)
             {
                 bool customPathAdded = AddCustomBuildPathToDictionary(customLocation);
