@@ -22,7 +22,7 @@ namespace Switch_Trados_Studios_Environment
             {
                 InstalledBuildInformation installedBuildInformation = installedBuilds.listOfInstalledBuilds.Single(b => $"{b.DisplayName} {b.DisplayVersion}" == selectedStudioType);
                 installLocation = installedBuildInformation.InstallLocation;
-                bool isMiltiregion = double.Parse(installedBuildInformation.DisplayVersion.Replace(".", ""))/10000 > 1801.9; //Checks if the installed studio version support Language Cloud multiregion
+                bool isMiltiregion = int.Parse(installedBuildInformation.DisplayVersion.Replace(".", "").Substring(0,4)) > 1801; //Checks if the installed studio version support Language Cloud multiregion
                 environmentFilePath = EnvironmentFiles.GetPathToTheSpecificEnvironmentFile(environment, isMiltiregion);
             }
             else
