@@ -11,14 +11,15 @@
     </auth0>
   </BestMatchServiceSettings>
   <BestMatchServiceUrlsConfig GlobalApi="https://lc-global-api.sdl.com" auth0="https://sdl-prod.eu.auth0.com">
-    <translationToolkit url="https://languagecloud.sdl.com/lc/">
-      <alternate lang="de" url="https://languagecloud.sdl.com/de/lc/" />
-      <alternate lang="fr" url="https://languagecloud.sdl.com/fr/lc/" />
-      <alternate lang="es" url="https://languagecloud.sdl.com/es/lc/" />
-      <alternate lang="ja" url="https://languagecloud.sdl.com/ja/lc/" />
-      <alternate lang="it" url="https://languagecloud.sdl.com/it/lc/" />
-      <alternate lang="zh-CN" url="https://languagecloud.sdl.com/zh/lc/" />
-    </translationToolkit>
+    <LanguageConfig>
+      <Lang Code="en" />
+      <Lang Code="de" />
+      <Lang Code="fr" />
+      <Lang Code="es" />
+      <Lang Code="ja" />
+      <Lang Code="it" />
+      <Lang Code="zh-CN" />
+    </LanguageConfig>
     <HavingTroubleSigningIn url="https://gateway.sdl.com/apex/communityknowledge?articleName=000001399" />
   </BestMatchServiceUrlsConfig>
 </configuration>

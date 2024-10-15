@@ -3,23 +3,23 @@
   <LanguageCloudSyncConfig HubName="/ProjectsHub" HubConnectionTimeout="120000" />
   <BestMatchServiceSettings>
     <tracking>
-      <setting name="applicationKey" value="n2JUV2wjQeKOVB0muXqL0Q%3D%3D"/>
+      <setting name="applicationKey" value="n8JUV2wjQeKOVB0muXqL0Q%3D%3D"/>
     </tracking>
     <auth0>
       <setting name="clientId" value="OltQlVmK6N9Y04bNMmFxoXmGleLMmdxB"/>
       <setting name="audience" value="https://api-preprod.sdl.com"/>
     </auth0>
   </BestMatchServiceSettings>
-  
-<BestMatchServiceUrlsConfig GlobalApi="https://pte-global-api.sdl.com" auth0="https://sdl-prod.eu.auth0.com">
-    <translationToolkit url="https://pte-languagecloud.sdl.com/lc/">
-      <alternate lang="de" url="https://pte-languagecloud.sdl.com/de/lc/" />
-      <alternate lang="fr" url="https://pte-languagecloud.sdl.com/fr/lc/" />
-      <alternate lang="es" url="https://pte-languagecloud.sdl.com/es/lc/" />
-      <alternate lang="ja" url="https://pte-languagecloud.sdl.com/ja/lc/" />
-      <alternate lang="it" url="https://pte-languagecloud.sdl.com/it/lc/" />
-      <alternate lang="zh-CN" url="https://pte-languagecloud.sdl.com/zh/lc/" />
-    </translationToolkit>
-    <HavingTroubleSigningIn url="https://gateway.sdl.com/apex/communityknowledge?articleName=How-to-reset-your-password-for-your-My-SDL-Account" />
+  <BestMatchServiceUrlsConfig GlobalApi="https://pte-lc-global-api.sdl.com" auth0="https://sdl-preprod.eu.auth0.com">
+    <LanguageConfig>
+      <Lang Code="en" />
+      <Lang Code="de" />
+      <Lang Code="fr" />
+      <Lang Code="es" />
+      <Lang Code="ja" />
+      <Lang Code="it" />
+      <Lang Code="zh-CN" />
+    </LanguageConfig>
+    <HavingTroubleSigningIn url="https://gateway.sdl.com/apex/communityknowledge?articleName=000001399" />
   </BestMatchServiceUrlsConfig>
 </configuration>

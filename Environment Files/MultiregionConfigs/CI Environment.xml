@@ -9,19 +9,17 @@
       <setting name="clientId" value="OltQlVmK6N9Y04bNMmFxoXmGleLMmdxB"/>
       <setting name="audience" value="https://api-preprod.sdl.com"/>
     </auth0>
-    <encryption>
-      <setting name="useSymmetricKey" value="true" />
-    </encryption>
   </BestMatchServiceSettings>
   <BestMatchServiceUrlsConfig GlobalApi="https://ci-lc-global-api.sdl.com" auth0="https://sdl-preprod.eu.auth0.com">
-    <translationToolkit url="https://ci-languagecloud.sdl.com/lc/">
-      <alternate lang="de" url="https://ci-languagecloud.sdl.com/de/lc/" />
-      <alternate lang="fr" url="https://ci-languagecloud.sdl.com/fr/lc/" />
-      <alternate lang="es" url="https://ci-languagecloud.sdl.com/es/lc/" />
-      <alternate lang="ja" url="https://ci-languagecloud.sdl.com/ja/lc/" />
-      <alternate lang="it" url="https://ci-languagecloud.sdl.com/it/lc/" />
-      <alternate lang="zh-CN" url="https://ci-languagecloud.sdl.com/zh/lc/" />
-    </translationToolkit>
+    <LanguageConfig>
+      <Lang Code="en" />
+      <Lang Code="de" />
+      <Lang Code="fr" />
+      <Lang Code="es" />
+      <Lang Code="ja" />
+      <Lang Code="it" />
+      <Lang Code="zh-CN" />
+    </LanguageConfig>
     <HavingTroubleSigningIn url="https://gateway.sdl.com/apex/communityknowledge?articleName=How-to-reset-your-password-for-your-My-SDL-Account" />
   </BestMatchServiceUrlsConfig>
 </configuration>
