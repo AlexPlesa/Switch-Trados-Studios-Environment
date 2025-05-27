@@ -5,20 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Switch_Trados_Studios_Environment"
         mc:Ignorable="d"
-        Title="Switch Environment 1.3.0" Height="420" Width="346" 
+        Title="Switch Environment 1.5.0" Height="460" Width="346" 
         Icon="Switch.png"
         ResizeMode="CanMinimize">
     <Grid Height="420">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="9*"/>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="210*"/>
-        </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="4">
             <StackPanel Margin="10,10,10,10">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,5,5">
-                    <TextBlock HorizontalAlignment="Left"  Text="Select environment type" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left"  Text="Select environment" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox 
                             Name="EnvironmentType" 
@@ -31,14 +25,14 @@
                             Width="60"
                             Height="30"
                             Name="Help" 
-                            Content=" Help " 
+                            Content="Help" 
                             Margin="5,10,0,0" Click="Help_Click" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,5,5">
                     <TextBlock 
                         HorizontalAlignment="Left"  
-                        Text="Select or browse build type" 
+                        Text="Select build or .config file" 
                         TextWrapping="Wrap" 
                         VerticalAlignment="Top" 
                         FontSize="16"/>
@@ -61,7 +55,22 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="20,0,10,0">
-                <TextBox IsReadOnly="True" Name="Status" HorizontalAlignment="Left" VerticalContentAlignment="Top" BorderThickness="0" Text="" Visibility="Hidden" TextAlignment="Left" TextWrapping="Wrap" Height="151" Width="250" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True" Opacity="0.8"/>
+                <TextBox 
+                    IsReadOnly="True" 
+                    Name="Status" 
+                    HorizontalAlignment="Left" 
+                    VerticalContentAlignment="Top" 
+                    BorderThickness="0" 
+                    Text="" 
+                    Visibility="Hidden" 
+                    TextAlignment="Left" 
+                    TextWrapping="Wrap" 
+                    Height="151" 
+                    Width="250" 
+                    FontSize="16" 
+                    VerticalAlignment="Stretch" 
+                    ScrollViewer.CanContentScroll="True" 
+                    Opacity="0.8"/>
             </StackPanel>
             <Button 
                 Name="SwitchEnvironmentButton" 
@@ -71,4 +80,47 @@
                 Click="ChangeEnvironment_Click"/>
         </StackPanel>
     </Grid>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#FF007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF007ACC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="MinHeight" Value="30"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+    </Window.Resources>
 </Window>

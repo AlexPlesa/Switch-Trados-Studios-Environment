@@ -12,26 +12,14 @@ namespace Switch_Trados_Studios_Environment
 
         public void DeleteLanguageCloudConfig(int studioBuildType)
         {
-            string buildType;
-            if (installedBuilds.nrOfInstalledBuilds > studioBuildType)
-            {
-                buildType = installedBuilds.studioBuildTypeDictionary[studioBuildType];
-            }
-            else
-            {
-                buildType = "Studio17";
-            }
-            string languageCloudMachineTranslationLocation = buildType.Contains("17") ? "Trados\\Trados Studio" : "SDL\\SDL Trados Studio";
+            string buildType = installedBuilds.nrOfInstalledBuilds > studioBuildType ? installedBuilds.studioBuildTypeDictionary[studioBuildType] : "Studio18";
+            string languageCloudMachineTranslationLocation = buildType.Contains("16.") ? "SDL\\SDL Trados Studio" : "Trados\\Trados Studio";
 
 
             if (Directory.Exists($@"{appdataDirectory}{languageCloudMachineTranslationLocation}"))
             {
-                try
-                {
-                    FileInfo fileInfo = new FileInfo($@"{appdataDirectory}{languageCloudMachineTranslationLocation}\{buildType}\{Constants.LanguageCloudMachineTranslation}");
-                    fileInfo.Delete();
-                }
-                catch (Exception ex) { };
+                FileInfo fileInfo = new FileInfo($@"{appdataDirectory}{languageCloudMachineTranslationLocation}\{buildType}\{Constants.LanguageCloudMachineTranslation}");
+                if (fileInfo.Exists) fileInfo.Delete();
             }
         }
     }

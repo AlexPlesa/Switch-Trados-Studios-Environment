@@ -87,7 +87,7 @@ namespace Switch_Trados_Studios_Environment
             SwitchEnvironmentButton.IsEnabled = false;
             try
             {
-                string message = $"Success:\n\n{StudioBuildType.Text} has been changed to the {EnvironmentType.Text}";
+                string message = $"Success:\n\n{StudioBuildType.Text} has been switched to the {EnvironmentType.Text}";
                 overwriteStudioEnvironment.SwitchStudiosLcEnvironment(studioIndex, environmentIndex);
                 Status.Visibility = Visibility.Visible;
                 Status.Text = message;
