@@ -75,9 +75,6 @@
     <None Update="Environment Files\SingleRegionConfigs\CI Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Environment Files\SingleRegionConfigs\DEV Environment.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Environment Files\SingleRegionConfigs\Production Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
