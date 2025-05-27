@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Switch_Trados_Studios_Environment"
         mc:Ignorable="d"
-        Title="Switch Environment 1.5.1" Height="460" Width="400" 
+        Title="Switch Environment 1.5.2" Height="460" Width="400" 
         Icon="Switch.png"
         ResizeMode="CanMinimize">
     <Grid Height="420">
@@ -164,8 +164,9 @@
                             Background="White"
                             BorderBrush="#FFCCCCCC"
                             BorderThickness="1"
-                            CornerRadius="6"
-                            SnapsToDevicePixels="True">
+                            CornerRadius="6"        
+                            SnapsToDevicePixels="True"
+                            MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}">
                                     <ScrollViewer SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" />
                                     </ScrollViewer>
