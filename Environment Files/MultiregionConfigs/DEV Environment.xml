@@ -10,7 +10,7 @@
       <setting name="audience" value="https://api-preprod.sdl.com"/>
     </auth0>
   </BestMatchServiceSettings>
-  <BestMatchServiceUrlsConfig GlobalApi="https://dev-lc-global-api.sdl.com" auth0="https://sdl-preprod.eu.auth0.com">
+  <BestMatchServiceUrlsConfig GlobalApi="https://api.dev-cloud.trados.com" auth0="https://sdl-preprod.eu.auth0.com">
     <LanguageConfig>
       <Lang Code="en" />
       <Lang Code="de" />
