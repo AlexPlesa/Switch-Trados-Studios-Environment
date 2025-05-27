@@ -15,11 +15,15 @@ namespace Switch_Trados_Studios_Environment
             string buildType = installedBuilds.nrOfInstalledBuilds > studioBuildType ? installedBuilds.studioBuildTypeDictionary[studioBuildType] : "Studio18";
             string languageCloudMachineTranslationLocation = buildType.Contains("16.") ? "SDL\\SDL Trados Studio" : "Trados\\Trados Studio";
 
-
-            if (Directory.Exists($@"{appdataDirectory}{languageCloudMachineTranslationLocation}"))
+            var files = Directory.GetFiles($@"{appdataDirectory}{languageCloudMachineTranslationLocation}", "LanguageCloudMachineTranslation.bin", SearchOption.AllDirectories);
+            foreach (var file in files)
             {
-                FileInfo fileInfo = new FileInfo($@"{appdataDirectory}{languageCloudMachineTranslationLocation}\{buildType}\{Constants.LanguageCloudMachineTranslation}");
-                if (fileInfo.Exists) fileInfo.Delete();
+                try
+                {
+                    File.Delete(file);
+                }
+                catch (Exception ex)
+                { }
             }
         }
     }
