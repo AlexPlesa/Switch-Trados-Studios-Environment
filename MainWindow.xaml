@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Switch_Trados_Studios_Environment"
         mc:Ignorable="d"
-        Title="Switch Environment 1.5.0" Height="460" Width="346" 
+        Title="Switch Environment 1.5.1" Height="460" Width="400" 
         Icon="Switch.png"
         ResizeMode="CanMinimize">
     <Grid Height="420">
@@ -14,13 +14,7 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,5,5">
                     <TextBlock HorizontalAlignment="Left"  Text="Select environment" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox 
-                            Name="EnvironmentType" 
-                            HorizontalAlignment="Left" 
-                            Margin="0,10,0,0" 
-                            VerticalAlignment="Top"
-                            Width="220"  
-                            Height="30"/>
+                        <ComboBox Name="EnvironmentType"/>
                         <Button 
                             Width="60"
                             Height="30"
@@ -32,18 +26,12 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,5,5">
                     <TextBlock 
                         HorizontalAlignment="Left"  
-                        Text="Select build or .config file" 
+                        Text="Select build or browse for config file" 
                         TextWrapping="Wrap" 
                         VerticalAlignment="Top" 
                         FontSize="16"/>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox 
-                            Name="StudioBuildType" 
-                            HorizontalAlignment="Left" 
-                            Margin="0,10,0,0" 
-                            VerticalAlignment="Top"
-                            Width="220" 
-                            Height="30"/>
+                        <ComboBox Name="StudioBuildType"/>
                         <Button 
                             Width="60"
                             Height="30"
@@ -76,7 +64,7 @@
                 Name="SwitchEnvironmentButton" 
                 Content="Switch Environment" 
                 HorizontalAlignment="Center" 
-                Margin="0,20,0,0" Height="35" Width="280" 
+                Margin="0,20,0,0" Height="35" Width="340" 
                 Click="ChangeEnvironment_Click"/>
         </StackPanel>
     </Grid>
@@ -105,11 +93,101 @@
             </Setter>
         </Style>
         <Style TargetType="ComboBox">
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="0,10,0,0"/>
             <Setter Property="Padding" Value="5,2"/>
             <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6"
+                            SnapsToDevicePixels="True"/>
+                            <Grid Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="32" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter
+                            Grid.Column="0"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <ToggleButton
+                            x:Name="DropDownToggle"
+                            Grid.Column="1"
+                            Focusable="False"
+                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            Width="32">
+                                    <Path
+                                Width="16"
+                                Height="16"
+                                Stretch="Uniform"
+                                Fill="#888"
+                                Data="M 0 0 L 8 8 L 16 0 Z"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                                </ToggleButton>
+                            </Grid>
+                            <Popup
+                        Name="PART_Popup"
+                        Placement="Bottom"
+                        IsOpen="{TemplateBinding IsDropDownOpen}"
+                        AllowsTransparency="True"
+                        Focusable="False"
+                        PopupAnimation="Slide">
+                                <Border
+                            Margin="0,2,0,0"
+                            Background="White"
+                            BorderBrush="#FFCCCCCC"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            SnapsToDevicePixels="True">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FFF0F0F0"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FFD9D9D9"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF007ACC"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF007ACC"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="Segoe UI"/>
