@@ -51,40 +51,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Environment Files\MultiregionConfigs\CI Environment.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Environment Files\MultiregionConfigs\DEV Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Environment Files\MultiregionConfigs\Production Environment.xml">
+    <None Update="Environment Files\MultiregionConfigs\PROD Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Environment Files\MultiregionConfigs\PTE Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Environment Files\MultiregionConfigs\QA Environment.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Environment Files\MultiregionConfigs\Staging Environment.xml">
+    <None Update="Environment Files\MultiregionConfigs\STAGING Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Environment Files\MultiregionConfigs\UAT Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Environment Files\SingleRegionConfigs\CI Environment.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Environment Files\SingleRegionConfigs\Production Environment.xml">
+    <None Update="Environment Files\SingleRegionConfigs\PROD Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Environment Files\SingleRegionConfigs\PTE Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Environment Files\SingleRegionConfigs\QA Environment.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Environment Files\SingleRegionConfigs\Staging Environment.xml">
+    <None Update="Environment Files\SingleRegionConfigs\STAGING Environment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Environment Files\SingleRegionConfigs\UAT Environment.xml">
