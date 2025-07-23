@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Switch_Trados_Studios_Environment"
         mc:Ignorable="d"
-        Title="Switch Environment 1.6.0" Height="460" Width="400" 
+        Title="Switch Environment 1.5.2" Height="460" Width="400" 
         Icon="Switch.png"
         ResizeMode="CanMinimize">
     <Grid Height="420">
@@ -18,8 +18,8 @@
                         <Button 
                             Width="60"
                             Height="30"
-                            Name="Help" 
-                            Content="Help" 
+                            Name="Info" 
+                            Content="Info" 
                             Margin="5,10,0,0" Click="Help_Click" />
                     </StackPanel>
                 </StackPanel>

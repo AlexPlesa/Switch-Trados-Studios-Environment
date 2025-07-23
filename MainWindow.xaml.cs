@@ -69,15 +69,15 @@ namespace Switch_Trados_Studios_Environment
             var hasUpdate = CheckForUpdates.IsNewVersionAvailableAsync().Result;
             if (hasUpdate.hasUpdate)
             {
-                string message = $"There is a new tool version\n\nPlease click Help and download version {hasUpdate.version} from the confluence page";
+                string message = $"Outdated Version:\n\nThis version of Switch Environment is outdated, please click the Info button and download version {hasUpdate.version} from the Confluence page";
                 Status.Visibility = Visibility.Visible;
                 Status.Text = message;
                 Status.Foreground = Brushes.DarkRed;
 
                 // Assign a new, unfrozen brush before animating
-                Help.BorderBrush = new SolidColorBrush(Colors.DarkRed);
+                Info.BorderBrush = new SolidColorBrush(Colors.DarkRed);
 
-                var borderBrush = Help.BorderBrush as SolidColorBrush;
+                var borderBrush = Info.BorderBrush as SolidColorBrush;
                 if (borderBrush != null && !borderBrush.IsFrozen)
                 {
                     var animation = new System.Windows.Media.Animation.ColorAnimation
