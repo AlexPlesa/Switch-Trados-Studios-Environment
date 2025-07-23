@@ -22,7 +22,13 @@ namespace Switch_Trados_Studios_Environment
         public MainWindow()
         {
             InitializeComponent();
-            
+            CheckForInstalledVersionsOfTradosStudio();
+            PopulateEnvironmentDropdown();
+            CheckForToolUpdates();
+        }
+
+        private void CheckForInstalledVersionsOfTradosStudio()
+        {
             foreach (var build in installedBuilds.listOfInstalledBuilds)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
@@ -42,7 +48,10 @@ namespace Switch_Trados_Studios_Environment
                 Status.Foreground = Brushes.DarkRed;
                 SwitchEnvironmentButton.IsEnabled = false;
             }
+        }
 
+        private void PopulateEnvironmentDropdown()
+        {
             var environmentConfigFiles = EnvironmentFiles.GetEnvironmentFilesDictionaries();
 
             foreach (string environmentFile in environmentConfigFiles)
@@ -53,6 +62,47 @@ namespace Switch_Trados_Studios_Environment
                 comboBoxItem.Content = System.IO.Path.GetFileNameWithoutExtension(fileName);
                 EnvironmentType.Items.Add(comboBoxItem);
             }
+        }
+
+        private void CheckForToolUpdates()
+        {
+            var hasUpdate = CheckForUpdates.IsNewVersionAvailableAsync().Result;
+            if (hasUpdate.hasUpdate)
+            {
+                string message = $"There is a new tool version\n\nPlease click Help and download version {hasUpdate.version} from the confluence page";
+                Status.Visibility = Visibility.Visible;
+                Status.Text = message;
+                Status.Foreground = Brushes.DarkRed;
+
+                // Assign a new, unfrozen brush before animating
+                Help.BorderBrush = new SolidColorBrush(Colors.DarkRed);
+
+                var borderBrush = Help.BorderBrush as SolidColorBrush;
+                if (borderBrush != null && !borderBrush.IsFrozen)
+                {
+                    var animation = new System.Windows.Media.Animation.ColorAnimation
+                    {
+                        From = Colors.DarkRed,
+                        To = Colors.Transparent,
+                        Duration = TimeSpan.FromSeconds(0.5),
+                        AutoReverse = true,
+                        RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever
+                    };
+                    borderBrush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+                }
+            }
+        }
+
+        private bool AddCustomBuildPathToDictionary(string customPath)
+        {
+            bool valueExists = installedBuilds.studioBuildTypeDictionary.Values.Contains<string>(customPath);
+            if (!valueExists)
+            {
+                int Key = installedBuilds.studioBuildTypeDictionary.Count;
+                overwriteStudioEnvironment.installedBuilds.studioBuildTypeDictionary.Add(Key, customPath);
+                return true;
+            }
+            return false;
         }
 
         private void ChangeEnvironment_Click(object sender, RoutedEventArgs e)
@@ -115,18 +165,6 @@ namespace Switch_Trados_Studios_Environment
                 StudioBuildType.SelectedItem = customLocation;
                 SwitchEnvironmentButton.IsEnabled = true;
             }
-        }
-
-        private bool AddCustomBuildPathToDictionary(string customPath)
-        {
-            bool valueExists = installedBuilds.studioBuildTypeDictionary.Values.Contains<string>(customPath);
-            if (!valueExists)
-            {
-                int Key = installedBuilds.studioBuildTypeDictionary.Count;
-                overwriteStudioEnvironment.installedBuilds.studioBuildTypeDictionary.Add(Key, customPath);
-                return true;
-            }
-            return false;
         }
 
         private void Help_Click(object sender, RoutedEventArgs e)
