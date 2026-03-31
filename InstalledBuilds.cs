@@ -23,28 +23,39 @@ namespace Switch_Trados_Studios_Environment
 
         private List<InstalledBuildInformation> PopulateListOfInstalledBuilds()
         {
-            RegistryKey SdlInstallRegistry = Registry.LocalMachine.OpenSubKey(Constants.Trados32bit);
-
-            List<string> installedBuilds = new List<string>();
+            List<(string RegistryPath, string BuildName)> installedBuilds = new List<(string, string)>();
             List<InstalledBuildInformation> installedBuildsInformation = new List<InstalledBuildInformation>();
-            if (SdlInstallRegistry != null)
+
+            var registryPaths = new[] { Constants.Trados64bit, Constants.Trados32bit };
+
+            foreach (var registryPath in registryPaths)
             {
-                var installedStudioBuilds = SdlInstallRegistry.GetSubKeyNames()
-               .Where<string>(val => val.StartsWith("Studio1") && !val.Contains("License") && !val.Contains("MTStudio")).ToList();
-                installedBuilds.AddRange(installedStudioBuilds);
-            }
-            foreach(var buildName in installedBuilds)
-            {
-                RegistryKey tradosInstallInformation = Registry.LocalMachine.OpenSubKey(Path.Combine(Constants.Trados32bit, buildName));
-                installedBuildsInformation.Add(new InstalledBuildInformation
+                RegistryKey installRegistry = Registry.LocalMachine.OpenSubKey(registryPath);
+                if (installRegistry != null)
                 {
-                    DisplayName = (string)tradosInstallInformation.GetValue("DisplayName"),
-                    DisplayVersion = (string)tradosInstallInformation.GetValue("DisplayVersion"),
-                    InstallLocation = tradosInstallInformation.GetValue("DisplayIcon").ToString().Substring(0, tradosInstallInformation.GetValue("DisplayIcon").ToString().LastIndexOf('\\'))
-                });
-                
+                    var installedStudioBuilds = installRegistry.GetSubKeyNames()
+                        .Where(val => val.StartsWith("Studio1") && !val.Contains("License") && !val.Contains("MTStudio"))
+                        .Where(val => !installedBuilds.Any(b => b.BuildName == val))
+                        .Select(val => (registryPath, val))
+                        .ToList();
+                    installedBuilds.AddRange(installedStudioBuilds);
+                }
             }
-            
+
+            foreach (var (registryPath, buildName) in installedBuilds)
+            {
+                RegistryKey tradosInstallInformation = Registry.LocalMachine.OpenSubKey(Path.Combine(registryPath, buildName));
+                if (tradosInstallInformation != null)
+                {
+                    installedBuildsInformation.Add(new InstalledBuildInformation
+                    {
+                        DisplayName = (string)tradosInstallInformation.GetValue("DisplayName"),
+                        DisplayVersion = (string)tradosInstallInformation.GetValue("DisplayVersion"),
+                        InstallLocation = tradosInstallInformation.GetValue("DisplayIcon").ToString().Substring(0, tradosInstallInformation.GetValue("DisplayIcon").ToString().LastIndexOf('\\'))
+                    });
+                }
+            }
+
             return installedBuildsInformation;
         }
 
