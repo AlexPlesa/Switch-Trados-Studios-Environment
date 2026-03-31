@@ -66,7 +66,7 @@ namespace Switch_Trados_Studios_Environment
 
         private void CheckForToolUpdates()
         {
-            var hasUpdate = CheckForUpdates.IsNewVersionAvailableAsync().Result;
+            var hasUpdate = CheckForUpdates.IsNewVersionAvailableAsync(this.Title).Result;
             if (hasUpdate.hasUpdate)
             {
                 string message = $"Outdated Version:\n\nThis version of Switch Environment is outdated, please click the Info button and download version {hasUpdate.version} from the Confluence page";

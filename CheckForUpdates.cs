@@ -1,25 +1,21 @@
 ﻿using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.IO;
-using System.Linq;
-using System;
 
 namespace Switch_Trados_Studios_Environment
 {
     class CheckForUpdates
     {
-        public static async Task<(bool hasUpdate, string version)> IsNewVersionAvailableAsync()
+        public static async Task<(bool hasUpdate, string version)> IsNewVersionAvailableAsync(string localWindowTitle)
         {
-            string localXaml = await File.ReadAllTextAsync($@"{Path.GetDirectoryName(Environment.ProcessPath)}\AppVersion.xml").ConfigureAwait(false);
-            string localVersion = ExtractVersionFromTitle(localXaml);
+            string localVersion = Regex.Match(localWindowTitle, @"\d+\.\d+\.\d+").Value;
 
             string githubRawUrl = "https://raw.githubusercontent.com/AlexPlesa/Switch-Trados-Studios-Environment/master/MainWindow.xaml";
             using var httpClient = new HttpClient();
             try
             {
                 string remoteXaml = await httpClient.GetStringAsync(githubRawUrl).ConfigureAwait(false);
-                string remoteVersion = ExtractVersionFromTitle(remoteXaml);
+                string remoteVersion = ExtractVersionFromGithubTitle(remoteXaml);
                 return (IsVersionGreater(remoteVersion, localVersion), remoteVersion);
             }
             catch (HttpRequestException)
@@ -29,9 +25,9 @@ namespace Switch_Trados_Studios_Environment
             }
         }
 
-        private static string ExtractVersionFromTitle(string xamlContent)
+        private static string ExtractVersionFromGithubTitle(string xamlContent)
         {
-            var match = Regex.Match(xamlContent, @"Title=""Switch Environment ([\d\.]+)""");
+            var match = Regex.Match(xamlContent, @"Switch Environment ([\d\.]+)""");
             return match.Success ? match.Groups[1].Value : "0.0.0";
         }
 
