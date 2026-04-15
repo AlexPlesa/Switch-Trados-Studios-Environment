@@ -47,6 +47,7 @@ namespace Switch_Trados_Studios_Environment
             var oldLanguageCloudSyncConfig = tradosStudioConfigFile.SelectSingleNode(Constants.LanguageCloudSyncConfigNode);
             var oldBestMatchServiceSettings = tradosStudioConfigFile.SelectSingleNode(Constants.BestMatchServiceSettingsNode);
             var oldBestMatchServiceUrlConfig = tradosStudioConfigFile.SelectSingleNode(Constants.BestMatchServiceUrlsConfigNode);
+            var oldApplicationKey = applicationKey.GetApplicationKey(oldLanguageCloudSyncConfig);
 
             var configuration = oldBestMatchServiceSettings.ParentNode;
             if (!installLocation.Contains("Studio16"))
@@ -61,7 +62,7 @@ namespace Switch_Trados_Studios_Environment
             configuration.InsertBefore(tradosStudioConfigFile.ImportNode(newBestMatchServiceUrlConfig, true), oldBestMatchServiceUrlConfig);
             configuration.RemoveChild(oldBestMatchServiceUrlConfig);
 
-            applicationKey.ChangeApplicationKey(installLocation, configuration);
+            applicationKey.SetApplicationKey(oldApplicationKey, configuration);
             
             tradosStudioConfigFile.Save(lcEnvironmentFilePath);
         }
